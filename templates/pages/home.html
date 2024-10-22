@@ -1,0 +1,143 @@
+---
+products:
+    featured:
+        limit: {{theme_settings.homepage_featured_products_count}}
+    new:
+        limit: {{theme_settings.homepage_new_products_count}}
+    top_sellers:
+        limit: {{theme_settings.homepage_top_products_count}}
+carousel: {{theme_settings.homepage_show_carousel}}
+
+blog:
+    recent_posts:
+        limit: {{theme_settings.homepage_blog_posts_count}}
+---
+
+<!-- START HOMESLIDER DIV -->
+	
+    {{#partial "hero"}}
+        {{{region name="home_below_menu"}}}
+		<div class="slider-banner">
+			<div class="container">
+			
+				{{#if carousel}}
+					{{> components/carousel arrows=theme_settings.homepage_show_carousel_arrows}}
+				{{/if}}
+				
+				<!-- START CMS BANNER TOP DIV ---->
+				{{#if banners.top}}
+					<div class="topbanner">
+						<div class="banners" data-banner-location="top">
+							<div class="banner">
+								{{{limit banners.top 1}}}
+							</div>
+						</div>
+					</div>
+				{{/if}}		
+				<!-- END CMS BANNER TOP DIV ---->   
+				
+			</div>
+		</div>
+    {{/partial}}
+<!-- END HOMESLIDER DIV -->
+
+
+{{#partial "page"}}
+ 
+    <!--{{#each shipping_messages}}
+        {{> components/common/alert-info message}}
+    {{/each}}---->
+    
+
+
+<!-- START CATEGORIES DIV ---->
+ {{#if theme_settings.homepage_show_subcategories}}
+    <div class="allcategories">
+    	<div class="container">
+            <h1 class="page-heading"><span>{{ lang 'Shop Categories' }}</span></h1>
+            {{> components/category/subcategories}}
+        </div>
+    </div>
+{{/if}}
+<!-- END CATEGORIES DIV ----> 
+
+ {{{region name="home_below_carousel"}}}
+
+<!-- START FEATURED PRODUCT CAROUSEL DIV -->
+	{{#if products.featured}}
+		<div class="tt-featured container">
+			{{> components/products/featured products=products.featured columns=theme_settings.homepage_featured_products_column_count}}
+			<!-- {{{region name="home_below_featured_products"}}} -->
+		</div>
+	{{/if}}
+<!-- END FEATURED PRODUCT CAROUSEL DIV -->
+    
+    
+    {{#if products.top_sellers}}
+        <div class="tt-top-seller">
+            <div class="container">
+                {{> components/products/top products=products.top_sellers columns=theme_settings.homepage_top_products_column_count}}
+                 <!-- {{{region name="home_below_top_products"}}} -->
+            </div>
+        </div>
+    {{/if}} 
+    
+    
+    <!-- START NEW PRODUCT CAROUSEL DIV -->
+	{{#if products.new}}
+		<div class="tt-new">
+			<div class="container">
+				{{> components/products/new products=products.new columns=theme_settings.homepage_new_products_column_count}}
+				<!--  {{{region name="home_below_new_products"}}} -->
+			</div>
+		</div>
+	{{/if}}
+    <!-- END NEW PRODUCT CAROUSEL DIV -->
+        
+    
+    
+    <!-- START  BLOG -->
+    {{#if theme_settings.homepage_show_blog}}
+    	<div class="tt-blogpost">
+            <div class="container">
+                <h1 class="page-heading"><span>{{ lang 'Latest Blog'  }}</span></h1>
+                <ul class="bloglist ttblog-carousel row">
+                    {{#each blog.recent_posts}}
+                        <li>
+                            <div class="blog-content">
+                                 <div class="ttblog_image_holder blog_image_holder">
+                                      {{#if thumbnail}}
+                                        <figure class="blog-thumbnail">
+                                            <a href="{{url}}">
+                                                <img src="{{getImage thumbnail 'gallery_size'}}" alt="{{thumbnail.alt}}" title="{{thumbnail.alt}}">
+                                                
+                                                <div class="blog-hover"></div>
+                                            </a>
+                                        </figure>
+                                        {{/if}}
+                                      <span class="bloglinks"> 
+                                          <a class="read-more" href="{{url}}"><span class="material-icons">search</span></a>
+                                      </span>
+                                  </div>
+                                  <div class="blog-caption blog-sub-content">
+                                        <a href="{{url}}" class="post_title" title="{{title}}">{{title}}</a>
+                                        <div class="blog-description">{{summary}}</div>
+                                        {{#if author}}
+                                            <div class="author">
+                                            <span class="material-icons">person_outline</span>
+                                            <span>{{lang 'blog.posted_by' name=author}}</span>
+                                        </div>
+                                        {{/if}}
+                                      <span class="blog-date"><span class="material-icons">calendar_today</span>{{date_published}}</span>
+                                  </div>
+                             </div>
+                         </li>
+                    {{/each}}	 
+                </ul>
+            </div>
+        </div>
+    {{/if}}    
+    <!-- END BLOG --->    
+    
+{{/partial}}
+{{> layout/base}}

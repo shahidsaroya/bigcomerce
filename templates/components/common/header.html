@@ -1,0 +1,84 @@
+<header class="header" role="banner">
+	<div class="header-top">
+		<div class="container">
+			<div class="tt-header-cms">
+				<div class="content"><span class="material-icons">local_offer</span>{{lang 'header.heatercmstext'}}</div>
+			</div>
+			{{#if settings.gift_certificates_enabled}}
+				<div class="tt-giftcard">
+					<span class="material-icons">card_giftcard</span>
+					<a class="giftcard" href="{{urls.gift_certificate.purchase}}">{{lang 'common.gift_cert'}}</a>
+				</div>
+			{{/if}}
+			<div class="email-id">
+				<div class="content"><span class="material-icons">mail_outline</span><a href="mailto:">{{lang 'footer.footer_email'}}</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="header-center full-header">
+        <div class="container">
+            <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu">
+                <span class="mobileMenu-toggleIcon">Toggle menu</span>
+            </a>
+            
+            {{#if page_type '===' 'default'}}
+                <h1 class="header-logo header-logo--{{theme_settings.logo-position}}">
+                    {{> components/common/store-logo}}
+                </h1>
+            {{else}}
+                <div class="header-logo header-logo--{{theme_settings.logo-position}}">
+                    {{> components/common/store-logo}}
+                </div>
+            {{/if}}
+              
+             {{> components/common/navigation}}    
+                
+             {{#if settings.phone_number}}
+                <div class="tt-phone-number">
+                    <div class="contact-icon">
+                        <span class="material-icons">phone_in_talk</span>
+                    </div>
+                    <div class="content">
+                        <a href="tel:09277077088">{{settings.phone_number}}</a>
+                    </div>
+                </div>
+            {{/if}}	 
+            
+			 <div class="navUser-item ttquicksearch">
+                {{> components/common/quick-search}}
+            </div>	
+            
+            
+           
+            
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="container">
+            <div class="tt-header-content">
+                <div class="tt-menu navPages-container col-3" id="menu" data-menu >
+                    {{> components/common/navigation-menu}}
+                </div>
+                
+                <div class="tt-menu-link" id="menu-link" >	
+                    {{#unless theme_settings.hide_content_navigation}}
+                        {{#each pages}}
+                             <div class="navPages-item-page">
+                                 <a class="link-action{{#if name '==' ../page.title}} activePage{{/if}}" href="{{url}}">{{name}}</a>
+                             </div>
+                         {{/each}}
+                    {{/unless}}
+                </div>
+               <div class="offer-heading">
+					<div class="content">
+                    	<marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                    		<span class="material-icons">card_giftcard</span>{{lang 'header.offer_heading'}}
+                        </marquee>
+                   </div>
+				</div>
+            
+            </div>
+        </div>
+    </div>
+</header>
+{{{region name="header_bottom"}}}
